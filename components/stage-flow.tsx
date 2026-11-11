@@ -1,12 +1,16 @@
 'use client';
 
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-export function StageFlow({ children, labels }: { children: ReactNode; labels: string[] }) {
+type Stage = { title: string; detail: string };
+
+export function StageFlow({ stages }: { stages: Stage[] }) {
   const [stage, setStage] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [hovering, setHovering] = useState(false);
-  const [focused, setFocused] = useState(false);
+  const [inView, setInView] = useState(false);
+  const player = useRef<HTMLDivElement>(null);
+  const last = stages.length - 1;
+  const current = stages[stage];
 
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -17,29 +21,54 @@ export function StageFlow({ children, labels }: { children: ReactNode; labels: s
   }, []);
 
   useEffect(() => {
-    if (!playing || hovering || focused) return;
+    const target = player.current;
+    if (!target) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setInView(entry.isIntersecting);
+    }, { threshold: 0.4 });
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!playing || !inView) return;
     const timer = window.setInterval(() => {
-      if (!document.hidden) setStage(current => (current + 1) % labels.length);
-    }, 4200);
+      if (!document.hidden) setStage((stage + 1) % stages.length);
+    }, stage === last ? 2400 : stage === 0 ? 1500 : 1000);
     return () => window.clearInterval(timer);
-  }, [playing, hovering, focused, labels.length]);
+  }, [playing, inView, stage, last, stages.length]);
+
+  function select(index: number) {
+    setPlaying(false);
+    setStage(index);
+  }
 
   return (
-    <div onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}
-      onFocus={() => setFocused(true)} onBlur={event => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
-      }}>
-      <div className="flow-controls">
-        <button type="button" onClick={() => setPlaying(value => !value)}>{playing ? 'Pause stages' : 'Play stages'}</button>
-        <div className="stage-buttons" role="group" aria-label="Choose a stage">
-          {labels.map((label, index) => (
-            <button type="button" key={label} aria-label={label} aria-pressed={stage === index}
-              onClick={() => { setStage(index); setPlaying(false); }}>{index + 1}</button>
-          ))}
-        </div>
+    <div className="transformation-player" ref={player}>
+      <div className="wardrobe-motion" role="img" aria-label={current.detail}>
+        {stages.map(({ title }, index) => (
+          <span key={title} aria-hidden="true" className="wardrobe-frame"
+            data-active={index === stage}
+            style={{ backgroundPosition: `${(index % 5) * 25}% ${Math.floor(index / 5) * 100}%` }} />
+        ))}
       </div>
-      <div className="flow-window">
-        <div className="stage-flow" data-stage={stage}>{children}</div>
+      <div className="transformation-caption">
+        <p className="stage-count">Stage {stage + 1} of {stages.length}</p>
+        <h3>{current.title}</h3>
+        <p className="stage-detail">{current.detail}</p>
+        <label className="sr-only" htmlFor="transformation-position">Transformation stage</label>
+        <input id="transformation-position" className="stage-position" type="range" min={1}
+          max={stages.length} value={stage + 1} aria-valuetext={`Stage ${stage + 1} of ${stages.length}: ${current.title}`}
+          onChange={event => select(event.currentTarget.valueAsNumber - 1)} />
+        <div className="flow-controls">
+          <button type="button" aria-label="Previous stage" disabled={stage === 0}
+            onClick={() => select(stage - 1)}>←</button>
+          <button type="button" onClick={() => setPlaying(value => !value)}>
+            {playing ? 'Pause transformation' : 'Play transformation'}
+          </button>
+          <button type="button" aria-label="Next stage" disabled={stage === last}
+            onClick={() => select(stage + 1)}>→</button>
+        </div>
       </div>
     </div>
   );
