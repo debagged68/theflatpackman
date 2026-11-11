@@ -1,6 +1,7 @@
 export const site = {
   name: 'The Flat Pack Man',
   domain: 'theflatpackman.co.uk',
+  whatsappNumber: '447768055952',
   description: 'Flat-pack furniture assembly and French-inspired wardrobe transformations.',
   tagline: 'From PAX to Parisian Provenance',
   transformation: 'Parisian Provenance',

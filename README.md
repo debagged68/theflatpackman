@@ -21,9 +21,8 @@ Use Node 22. Run `npm ci`, then `npm run dev`. Run `npm run build` and `npm run 
 
 Set `CONTACT_EMAIL` to the actual mailbox, including the part before @. The domain supplied on its own is displayed as text.
 
-Set `ENQUIRY_WEBHOOK_URL` to an HTTPS backend receiver before enabling the forms. The same-origin route validates the fields and POSTs one of these JSON payloads to the receiver:
+The WhatsApp button uses the public business number in `content/site.ts`. It opens a chat with a draft enquiry that the visitor can edit and send.
 
-- Web enquiry — `{channel: "web", name, email, message}`. Deliver to the business inbox.
-- WhatsApp — `{channel: "whatsapp", phone, consent: true, acknowledgement}`. Record the opt-in and use the business's WhatsApp sender and approved template with the body “Flat Pack Man: Thank you for your enquiry – I am on it!”
+Set `ENQUIRY_WEBHOOK_URL` to an HTTPS backend receiver to enable the web enquiry form. The same-origin route validates the fields and POSTs `{channel: "web", name, email, message}` to the receiver for delivery to the business inbox.
 
-The receiver must implement throttling and deduplication before accepting live traffic, especially per WhatsApp recipient. Return HTTP 2xx only after accepting the enquiry or queueing delivery. Keep provider credentials in the receiver's secret store. The browser confirms request acceptance, and the provider must be checked for actual delivery. Until the receiver is configured, both forms are visibly disabled.
+The receiver should throttle and deduplicate requests. Return HTTP 2xx once an enquiry is accepted. Keep provider credentials in the receiver's secret store.

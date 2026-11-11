@@ -71,7 +71,6 @@ figcaption p, .image-note { color: var(--muted); }
 fieldset { margin: 0; border: 0; padding: 0; min-width: 0; }
 fieldset label:not([hidden]) { display: grid; gap: .25rem; margin: .55rem 0; }
 fieldset input:not([type="checkbox"]), fieldset textarea { width: 100%; min-height: 44px; padding: .5rem .6rem; background: white; color: var(--ink); border: 1px solid #778174; border-radius: 0; }
-fieldset label.checkbox { display: flex; gap: .5rem; align-items: baseline; }
 fieldset button { margin-top: .55rem; }
 .form-status:not(:empty) { margin-top: .6rem; }
 .site-footer { background: var(--forest); color: var(--paper); padding-block: 1.15rem; font-family: var(--serif); }

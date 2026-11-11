@@ -1,5 +1,3 @@
-const acknowledgement = 'Flat Pack Man: Thank you for your enquiry – I am on it!';
-
 function reply(message: string, status: number) {
   return Response.json({ message }, { status, headers: { 'Cache-Control': 'no-store' } });
 }
@@ -42,23 +40,12 @@ export async function POST(request: Request) {
   };
   if (field('website')) return reply('The enquiry could not be accepted.', 400);
 
-  const channel = field('channel');
-  const phone = field('phone').replace(/[\s().-]/g, '');
+  if (field('channel') !== 'web') return reply('Use the web enquiry form to send a message.', 400);
   const [name, email, message] = ['name', 'email', 'message'].map(field);
-  let payload;
-  if (channel === 'whatsapp') {
-    if (!/^\+[1-9]\d{7,14}$/.test(phone) || field('consent') !== 'on') {
-      return reply('Enter a WhatsApp number with its country code and confirm you agree to receive the reply.', 400);
-    }
-    payload = { channel, phone, consent: true, acknowledgement };
-  } else if (channel === 'web') {
-    if (!name || name.length > 100 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254 || !message || message.length > 2000) {
-      return reply('Check your name, email address and message.', 400);
-    }
-    payload = { channel, name, email, message };
-  } else {
-    return reply('Choose a contact method.', 400);
+  if (!name || name.length > 100 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254 || !message || message.length > 2000) {
+    return reply('Check your name, email address and message.', 400);
   }
+  const payload = { channel: 'web', name, email, message };
 
   try {
     const url = new URL(endpoint);
@@ -76,5 +63,5 @@ export async function POST(request: Request) {
   } catch {
     return reply('The request could not be sent. Please try again later.', 502);
   }
-  return reply(channel === 'whatsapp' ? 'Your WhatsApp reply has been requested.' : 'Thank you. Your enquiry has been received.', 202);
+  return reply('Thank you. Your enquiry has been received.', 202);
 }
