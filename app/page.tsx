@@ -19,10 +19,9 @@ export default async function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
       <section className="hero">
         <div className="hero-copy">
-          <p className="eyebrow">Furniture assembly &amp; transformations</p>
-          <h1>{site.name}</h1>
-          <p className="hero-tagline">{site.tagline}</p>
-          <p>{site.intro}</p>
+          <p className="eyebrow">{site.name}</p>
+          <h1>{site.headline}</h1>
+          <p className="hero-tagline">{site.intro}</p>
           <a className="button" href="#transformation">See the transformations <span aria-hidden="true">↓</span></a>
         </div>
         <div className="hero-image">

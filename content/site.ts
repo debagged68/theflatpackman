@@ -3,9 +3,9 @@ export const site = {
   domain: 'theflatpackman.co.uk',
   whatsappNumber: '447768055952',
   description: 'Flat-pack furniture assembly and French-inspired wardrobe transformations.',
-  tagline: 'From PAX to Parisian Provenance',
-  transformation: 'Parisian Provenance',
-  intro: 'See an IKEA PAX wardrobe go from clean-lined flat pack to a French-inspired armoire with carved details, a soft sage finish and aged brass.',
+  headline: 'From BILLY to Bijou and PAX to Provence',
+  tagline: 'From PAX to Provence',
+  intro: 'Transform your flat packs to beautiful furniture.',
   stages: [
     { title: 'The IKEA PAX', detail: 'A plain white two-door wardrobe with a square profile.' },
     { title: 'Sanded back', detail: 'The doors have been scuff-sanded to give the primer a surface to grip.' },
@@ -16,7 +16,7 @@ export const site = {
     { title: 'Blue-green undercoat', detail: 'A pale blue-green undercoat covers the trim and doors.' },
     { title: 'Soft sage paint', detail: 'A coat of soft sage brings the doors and moulding together.' },
     { title: 'Aged patina', detail: 'Deeper colour and rubbed edges bring out the carved details.' },
-    { title: 'Parisian Provenance', detail: 'Aged brass handles finish the sage-green French-inspired armoire.' },
+    { title: 'The Provence Armoire', detail: 'Aged brass handles finish the sage-green French-inspired armoire.' },
   ],
 };
 
