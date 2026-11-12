@@ -9,7 +9,10 @@ const makeovers = [
     image: '/images/wardrobe-transformation.webp',
     stages: site.stages,
   },
-  { ...billyMakeover, description: null },
+  {
+    ...billyMakeover,
+    description: 'See an IKEA BILLY flat pack become a bookcase you’ll be proud to show off, with room for your everyday reads, an arched top and a deep petrol-blue finish.',
+  },
 ];
 
 export function Transformation() {
