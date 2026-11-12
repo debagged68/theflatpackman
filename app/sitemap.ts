@@ -3,6 +3,6 @@ import { indexable, pages, siteUrl } from '../content/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   if (!indexable) return [];
-  return ['/', ...pages.filter(page => page.slug !== 'client-testimonials').map(page => '/' + page.slug)]
+  return ['/', '/ikea-ideas', ...pages.filter(page => page.slug !== 'client-testimonials').map(page => '/' + page.slug)]
     .map(path => ({ url: new URL(path, siteUrl).href }));
 }

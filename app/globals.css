@@ -39,7 +39,8 @@ nav a:hover { text-decoration: underline; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: .65rem; min-height: 44px; padding: .65rem 1rem; border: 1px solid transparent; background: var(--forest); color: white; font-weight: 700; text-decoration: none; }
 .button:hover { background: #27513c; }
 .button:disabled { opacity: .55; cursor: default; }
-.hero .button { margin-top: 1.5rem; background: var(--cream); color: var(--forest); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.5rem; }
+.hero .button { background: var(--cream); color: var(--forest); }
 .hero .button:hover { background: white; }
 .hero-image { position: relative; background: #d8d0bd; overflow: hidden; }
 .hero-image img { object-fit: cover; }
@@ -82,6 +83,21 @@ fieldset button { margin-top: .55rem; }
 .page-heading h1 { margin-top: .5rem; }
 .prose { min-height: 40vh; padding-block: 3.25rem; }
 .prose p { max-width: 62ch; margin-block: .8rem 1rem; }
+.page-heading h1 + p { margin-top: .65rem; }
+.ideas-content { padding-block: clamp(2rem, 6vw, 5rem); }
+.ideas-intro { max-width: 62ch; color: var(--muted); }
+.ideas-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 3vw, 2rem); margin-block: 1.75rem 2.5rem; }
+.idea-card { border: 1px solid var(--line); background: var(--cream); }
+.idea-card h2 { padding: 1rem; font-size: clamp(1.5rem, 2.5vw, 2.2rem); }
+.idea-comparison-labels { display: grid; grid-template-columns: 1fr 1fr; background: var(--forest); color: var(--paper); }
+.idea-comparison-labels span { padding: .3rem .75rem; font-size: .875rem; font-weight: 700; text-align: center; }
+.idea-comparison-labels span + span { border-left: 1px solid var(--line); }
+.idea-card img { display: block; width: 100%; height: auto; background: #d8d0bd; }
+.idea-detail { padding: 1rem; }
+.idea-detail p { margin-top: .4rem; }
+@media (max-width: 720px) {
+  .ideas-grid { grid-template-columns: 1fr; }
+}
 @media (max-width: 760px) {
   .header-inner { align-items: flex-start; flex-direction: column; gap: .4rem; }
   nav { gap: 0 1rem; }
