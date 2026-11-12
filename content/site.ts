@@ -3,7 +3,7 @@ export const site = {
   domain: 'theflatpackman.co.uk',
   whatsappNumber: '447768055952',
   description: 'Flat-pack furniture assembly and French-inspired wardrobe transformations.',
-  headline: 'From BILLY to Bijou and PAX to Provence',
+  headline: 'From BILLY to Bijou and from PAX to Provence',
   tagline: 'From PAX to Provence',
   intro: 'Transform your flat packs to beautiful furniture.',
   stages: [
