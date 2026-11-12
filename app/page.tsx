@@ -23,7 +23,7 @@ export default async function Home() {
           <h1>{site.name}</h1>
           <p className="hero-tagline">{site.tagline}</p>
           <p>{site.intro}</p>
-          <a className="button" href="#transformation">See the transformation <span aria-hidden="true">↓</span></a>
+          <a className="button" href="#transformation">See the transformations <span aria-hidden="true">↓</span></a>
         </div>
         <div className="hero-image">
           <Image src="/images/assembler.webp" alt="Furniture assembler fitting a wardrobe panel in a workshop" fill priority sizes="(max-width: 760px) 100vw, 55vw" />

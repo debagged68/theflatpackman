@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState, type CSSProperties } from 'react';
 
 type Stage = { title: string; detail: string };
 
-export function StageFlow({ stages }: { stages: Stage[] }) {
+export function StageFlow({ stages, image, title }: { stages: Stage[]; image: string; title: string }) {
+  const positionId = useId();
   const [stage, setStage] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [inView, setInView] = useState(false);
@@ -45,9 +46,10 @@ export function StageFlow({ stages }: { stages: Stage[] }) {
 
   return (
     <div className="transformation-player" ref={player}>
-      <div className="wardrobe-motion" role="img" aria-label={current.detail}>
+      <div className="makeover-motion" role="img" aria-label={current.detail}
+        style={{ '--makeover-sheet': `url("${image}")` } as CSSProperties}>
         {stages.map(({ title }, index) => (
-          <span key={title} aria-hidden="true" className="wardrobe-frame"
+          <span key={title} aria-hidden="true" className="makeover-frame"
             data-active={index === stage}
             style={{ backgroundPosition: `${(index % 5) * 25}% ${Math.floor(index / 5) * 100}%` }} />
         ))}
@@ -56,8 +58,8 @@ export function StageFlow({ stages }: { stages: Stage[] }) {
         <p className="stage-count">Stage {stage + 1} of {stages.length}</p>
         <h3>{current.title}</h3>
         <p className="stage-detail">{current.detail}</p>
-        <label className="sr-only" htmlFor="transformation-position">Transformation stage</label>
-        <input id="transformation-position" className="stage-position" type="range" min={1}
+        <label className="sr-only" htmlFor={positionId}>{title} stage</label>
+        <input id={positionId} className="stage-position" type="range" min={1}
           max={stages.length} value={stage + 1} aria-valuetext={`Stage ${stage + 1} of ${stages.length}: ${current.title}`}
           onChange={event => select(event.currentTarget.valueAsNumber - 1)} />
         <div className="flow-controls">

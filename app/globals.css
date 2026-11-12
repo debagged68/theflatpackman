@@ -45,11 +45,14 @@ nav a:hover { text-decoration: underline; }
 .hero-image img { object-fit: cover; }
 .hero-image img { object-position: 58% center; }
 .transformation { padding-block: clamp(3rem, 7vw, 6rem); scroll-margin-top: 1rem; }
-.transformation-player { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; margin-top: 1.5rem; background: var(--cream); border: 1px solid var(--line); }
-.wardrobe-motion { position: relative; width: min(100%, 350px); aspect-ratio: 302 / 506; justify-self: center; background: #d8d0bd; }
-.wardrobe-frame { position: absolute; inset: 0; opacity: 0; background: url('/images/wardrobe-transformation.webp') no-repeat; background-size: 500% 200%; transition: opacity .5s ease; }
-.wardrobe-frame[data-active="true"] { opacity: 1; z-index: 1; }
-.transformation-caption { padding: clamp(1.25rem, 4vw, 3rem); }
+.transformation-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.25rem, 4vw, 3rem); }
+.transformation-card { display: grid; grid-template-rows: subgrid; grid-row: span 2; row-gap: 1rem; }
+.transformation-card h2 { font-size: clamp(1.65rem, 3.15vw, 3rem); }
+.transformation-player { display: grid; grid-template-rows: auto 1fr; background: var(--cream); border: 1px solid var(--line); }
+.makeover-motion { position: relative; width: min(100%, 302px); aspect-ratio: 302 / 506; justify-self: center; background: #d8d0bd; }
+.makeover-frame { position: absolute; inset: 0; opacity: 0; background: var(--makeover-sheet) no-repeat; background-size: 500% 200%; transition: opacity .5s ease; }
+.makeover-frame[data-active="true"] { opacity: 1; z-index: 1; }
+.transformation-caption { display: grid; grid-template-rows: auto auto 1fr auto auto; padding: clamp(1rem, 3vw, 2rem); }
 .transformation-caption h3 { margin: .45rem 0; }
 .stage-detail { min-height: 3.2em; color: var(--muted); }
 .stage-position { display: block; width: 100%; height: 44px; margin: .45rem 0; accent-color: var(--forest); }
@@ -91,8 +94,8 @@ fieldset button { margin-top: .55rem; }
   .hero-copy { padding-inline: 1rem; }
   .explore { grid-template-columns: 1fr; }
   .explore a + a { border-top: 1px solid var(--line); }
-  .transformation-player { grid-template-columns: 1fr; }
-  .wardrobe-motion { width: min(100%, 265px); }
+  .transformation-grid { grid-template-columns: 1fr; }
+  .makeover-motion { width: min(100%, 265px); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
